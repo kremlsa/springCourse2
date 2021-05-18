@@ -1,22 +1,21 @@
 package org.kremlsa.spring;
 
 import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-public class PersonTest extends TestCase {
-
+public class ScopeTest extends TestCase {
     @Test
-    public void test3() {
+    public void testScope() {
         ClassPathXmlApplicationContext context =
                 new ClassPathXmlApplicationContext("applicationContext3.xml");
-        Person person = context.getBean("personBean", Person.class);
-        person.callYoutPet();
-        System.out.println(person.getAge());
-        System.out.println(person.getName());
 
+        Dog myDog = context.getBean("dog", Dog.class);
+        Dog yourDog = context.getBean("dog", Dog.class);
+
+        Assert.assertTrue(myDog == yourDog);
 
         context.close();
     }
-
 }
